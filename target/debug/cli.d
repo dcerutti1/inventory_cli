@@ -1,0 +1,1 @@
+C:\Users\doria\RustroverProjects\cli\target\debug\cli.exe: C:\Users\doria\RustroverProjects\cli\src\functions\Add_product.rs C:\Users\doria\RustroverProjects\cli\src\functions\mod.rs C:\Users\doria\RustroverProjects\cli\src\functions\validation_check.rs C:\Users\doria\RustroverProjects\cli\src\main.rs
