@@ -1,0 +1,11 @@
+C:\Users\doria\RustroverProjects\cli\target\debug\deps\libppv_lite86-53de2e33254ed776.rmeta: C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\lib.rs C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\soft.rs C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\types.rs C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\x86_64\mod.rs C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\x86_64\sse2.rs
+
+C:\Users\doria\RustroverProjects\cli\target\debug\deps\libppv_lite86-53de2e33254ed776.rlib: C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\lib.rs C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\soft.rs C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\types.rs C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\x86_64\mod.rs C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\x86_64\sse2.rs
+
+C:\Users\doria\RustroverProjects\cli\target\debug\deps\ppv_lite86-53de2e33254ed776.d: C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\lib.rs C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\soft.rs C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\types.rs C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\x86_64\mod.rs C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\x86_64\sse2.rs
+
+C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\lib.rs:
+C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\soft.rs:
+C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\types.rs:
+C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\x86_64\mod.rs:
+C:\Users\doria\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ppv-lite86-0.2.20\src\x86_64\sse2.rs:
