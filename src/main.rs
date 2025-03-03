@@ -7,11 +7,12 @@ mod functions;
 use functions::add_product::add_product;
 use functions::delete_product::delete;
 use functions::show_product::show;
+use functions::banner::show_banner;
 
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>>{
-
+    show_banner();
     loop{
     let items = vec!["Add Product", "Delete Product", "View Product", "Report","Update Product", "Settings", "Exit"];
 

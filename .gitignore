@@ -1,0 +1,20 @@
+banner.rs
+
+
+# Ignore all `.log` files
+*.log
+
+# Ignore the `target` directory (common in Rust projects)
+target/
+
+# Ignore `.env` files (for environment variables)
+.env
+
+# Ignore compiled binaries
+*.exe
+*.out
+*.o
+
+# Ignore editor or IDE-specific files
+
+.idea/
