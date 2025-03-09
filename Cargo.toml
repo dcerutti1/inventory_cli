@@ -14,3 +14,7 @@ log = "0.4.26"
 rand = "0.8.5"
 tokio = { version = "1.0.0", features = ["rt", "rt-multi-thread", "macros"] }
 tabled = "0.18.0"
+rpassword = "5.0"
+argon2 = "0.5.0"
+chrono = "0.4.40"
+bcrypt = "0.17.0"
