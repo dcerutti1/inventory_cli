@@ -1,5 +1,5 @@
 use std::error::Error;
-use std::iter::Product;
+use crate::functions::all_errors::{MyError};
 use sqlx::{FromRow, SqlitePool};
 use tabled::{Table, Tabled};
 use tabled::settings::Style;
@@ -10,7 +10,7 @@ struct product {
     name: String,
     quantity:u32
 }
-pub async fn show() -> Result<(), Box<dyn Error>> {
+pub async fn show() -> Result<(), MyError> {
     let pool = SqlitePool::connect("./Database/prod.db").await?;
 
     let products: Vec<product> = sqlx::query_as::<_, product>("SELECT * FROM products")

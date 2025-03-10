@@ -1,13 +1,13 @@
-use std::error::Error;
+
 use dialoguer::Input;
 use sqlx::SqlitePool;
+use crate::functions::all_errors::{MyError};
 
-pub(crate) async fn delete() -> Result<(), Box<dyn Error>> {
+pub(crate) async fn delete() -> Result<(), MyError> {
 
     let product_id: i32 = Input::new()
         .with_prompt("Enter product ID number")
-        .interact_text()
-        .map_err(|_| "❌ Failed to read product ID")?;
+        .interact_text()?;
 
 
     let pool = SqlitePool::connect("./Database/prod.db").await?;

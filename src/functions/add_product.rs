@@ -6,24 +6,22 @@ use indicatif::ProgressBar;
 use rand::Rng;
 use crate::functions::validation_check::product_check;
 use sqlx::{
-    sqlite::{ SqlitePool, SqliteRow},
+    sqlite::{ SqlitePool},
 };
-use sqlx::sqlite::SqlitePoolOptions;
+use crate::functions::all_errors::{MyError};
 use tokio;
 
-pub async fn add_product() -> Result<(), Box<dyn Error>> {
+pub async fn add_product() -> Result<(), MyError> {
     loop {
 
         let product_name: String = Input::new()
             .with_prompt("Enter product name")
-            .interact_text()
-            .map_err(|_| "❌ Failed to read product name")?;
+            .interact_text()?;
 
 
         let product_quantity: u32 = Input::new()
             .with_prompt("Enter product quantity")
-            .interact_text()
-            .map_err(|_| "❌ Invalid quantity. Please enter a number")?;
+            .interact_text()?;
 
 
 
@@ -45,7 +43,7 @@ pub async fn add_product() -> Result<(), Box<dyn Error>> {
                         Ok(pool) => pool,
                         Err(e) => {
                             println!("Error creating pool: {}", e);
-                            return Err(e);
+                            return Err(MyError::Database(sqlx::Error::RowNotFound));
                         }
                     };
 
