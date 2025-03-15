@@ -1,5 +1,6 @@
 
 use dialoguer::{Select, theme::ColorfulTheme};
+use dialoguer::console::Term;
 use functions::all_errors::{MyError};
 mod functions;
 mod auth;
@@ -17,19 +18,24 @@ use crate::auth::login::{Authenticate, User};
 
 #[tokio::main]
 async fn main() -> Result<(), MyError>{
+    let term = Term::stdout();
     show_banner();
     User::login().await?;
+    
+    
+    
 
-    
-    
+
     loop{
+         
     let items = vec!["Add Product", "Delete Product", "View Product", "Admin settings","Update Product","Settings", "Exit"];
 
     let selection = Select::with_theme(&ColorfulTheme::default())
         .with_prompt("Please select one.")
         .items(&items)
+        .clear(true)
         .interact()?;
-
+        term.clear_last_lines(1);
 
         match selection {
             0 => add_product().await,
@@ -45,7 +51,8 @@ async fn main() -> Result<(), MyError>{
         if selection == 6{
             break;
         }
-
+        let term = Term::stdout();
+        term.clear_screen();
     }
     Ok(())
 }

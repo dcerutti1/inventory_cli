@@ -1,5 +1,6 @@
 use std::error::Error;
 use std::time::Duration;
+use dialoguer::console::Term;
 //this function adds product to database after validation check.
 use dialoguer::Input;
 use indicatif::ProgressBar;
@@ -12,17 +13,24 @@ use crate::functions::all_errors::{MyError};
 use tokio;
 
 pub async fn add_product() -> Result<(), MyError> {
+    let term = Term::stdout();
     loop {
 
         let product_name: String = Input::new()
             .with_prompt("Enter product name")
             .interact_text()?;
 
+        if product_name.to_lowercase() == "exit" {
+            println!("Exiting...");
+            break
+            return Ok(());
+        }
+        term.clear_last_lines(1);
 
         let product_quantity: u32 = Input::new()
             .with_prompt("Enter product quantity")
             .interact_text()?;
-
+        term.clear_last_lines(1);
 
 
 //catch panic and loops to try again

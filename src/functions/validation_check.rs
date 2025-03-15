@@ -4,6 +4,7 @@ use std::fs;
 use serde::{Deserialize, Serialize};
 
 use std::io::{self, ErrorKind};
+use dialoguer::console::Term;
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Products {
@@ -12,6 +13,7 @@ struct Products {
 }
 
 pub fn product_check(name: &str, quantity: u32) -> Result<(), io::Error> {
+    let term = Term::stdout();
     let file_path = "./Config/Products.json";
     loop {
 
@@ -22,14 +24,15 @@ pub fn product_check(name: &str, quantity: u32) -> Result<(), io::Error> {
                 return Err(io::Error::new(ErrorKind::NotFound, "Products.json file not found"));
             }
             Err(err) => return Err(err),
+            
         };
-
+        term.clear_last_lines(1);
         // Parse JSON safely
         let products: Vec<Products> = match serde_json::from_str(&data) {
             Ok(parsed) => parsed,
             Err(_) => return Err(io::Error::new(ErrorKind::InvalidData, "Failed to parse Products.json")),
         };
-
+        term.clear_last_lines(1);
         // Normalize case before comparison
         let target_name = name.to_lowercase();
 
@@ -41,8 +44,10 @@ pub fn product_check(name: &str, quantity: u32) -> Result<(), io::Error> {
             return Err(io::Error::new(ErrorKind::NotFound, format!("Product '{}' not found or quantity mismatch", name)));
         } else
         { break;
-
+            
         }
+        
     }
+    term.clear_last_lines(1);
     Ok(())
 }
