@@ -6,6 +6,7 @@ pub(crate) mod banner;
 pub mod users;
 pub mod admin_menu;
 pub mod all_errors;
+pub mod pick_list;
 
 
 

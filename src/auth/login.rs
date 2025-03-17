@@ -58,8 +58,8 @@ impl Authenticate for User {
 
                     let session_id = Uuid::new_v4().to_string(); 
 
-                    let current_time = Utc::now(); // 
-                    let expiration_time = current_time + Duration::seconds(30);
+                    let current_time = Utc::now();  
+                    let expiration_time = current_time + Duration::hours(1);//change this to adjust session time length
 
                    
                     let current_time_str = current_time.to_string();

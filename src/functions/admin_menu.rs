@@ -17,7 +17,9 @@ pub async fn admin_menu() -> Result<(), MyError> {
             .items(&items)
             .clear(true)
             .interact()?;
+        
         term.clear_last_lines(1);
+        
         match selection {
             0 => {
                 Database::new().await?.create_user().await?;

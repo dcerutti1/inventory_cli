@@ -1,4 +1,10 @@
-use std::error::Error;
+use std::io;
+use std::io::{stdout, Write};
+use crossterm::{
+    execute,
+    terminal::{Clear, ClearType},
+};
+use crossterm::cursor::MoveTo;
 use dialoguer::{Confirm, Input};
 use dialoguer::console::Term;
 use crate::functions::all_errors::{MyError};
@@ -7,7 +13,7 @@ use tabled::{Table, Tabled};
 use tabled::settings::Style;
 
 #[derive(Debug, FromRow, Tabled)]
-struct product {
+struct Product {
     id: i32,
     name: String,
     quantity:u32
@@ -16,7 +22,7 @@ pub async fn show() -> Result<(), MyError> {
     let term = Term::stdout();
     let pool = SqlitePool::connect("./Database/prod.db").await?;
 
-    let products: Vec<product> = sqlx::query_as::<_, product>("SELECT * FROM products")
+    let products: Vec<Product> = sqlx::query_as::<_, Product>("SELECT * FROM products")
     .fetch_all(&pool)
     .await?;
     
@@ -26,10 +32,10 @@ pub async fn show() -> Result<(), MyError> {
         let _ = Confirm::new()
             .with_prompt("Press Enter to continue...")
             .default(true)
-            .interact()?; 
+            .interact()?;
 
-        term.clear_last_lines(2); 
-         
+        term.clear_screen();
+
     } else{
         
         let mut table = Table::new(&products); 
@@ -39,13 +45,13 @@ pub async fn show() -> Result<(), MyError> {
 
         let _ = Confirm::new()
             .with_prompt("Press Enter to continue...")
-            .default(true) 
+            .default(true)
             .interact()?;
-
-        let term = Term::stdout();
-        term.clear_last_lines(1);
-            
+        term.clear_last_lines(100);
     }
+
+    // Clear screen
+    
     
     Ok(())
 }

@@ -21,3 +21,4 @@ bcrypt = "0.17.0"
 async-trait = "0.1.87"
 thiserror = "1.0.69"
 uuid = { version = "1", features = ["v4"] }
+crossterm = "0.28.1"

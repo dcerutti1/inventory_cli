@@ -2,7 +2,7 @@ use std::error::Error;
 use std::time::Duration;
 use dialoguer::console::Term;
 //this function adds product to database after validation check.
-use dialoguer::Input;
+use dialoguer::{Confirm, Input};
 use indicatif::ProgressBar;
 use rand::Rng;
 use crate::functions::validation_check::product_check;
@@ -22,8 +22,18 @@ pub async fn add_product() -> Result<(), MyError> {
 
         if product_name.to_lowercase() == "exit" {
             println!("Exiting...");
-            break
-            return Ok(());
+            term.clear_last_lines(100);
+            break return Ok(());
+        }
+        
+        let product_location: String = Input::new()
+            .with_prompt("Enter product location")
+            .interact_text()?;
+
+        if product_location.to_lowercase() == "exit" {
+            println!("Exiting...");
+            term.clear_last_lines(100);
+            break return Ok(());
         }
         term.clear_last_lines(1);
 
@@ -55,7 +65,7 @@ pub async fn add_product() -> Result<(), MyError> {
                         }
                     };
 
-                        if let Err(e) = add_to_db(&pool_result, crate_id, product_name, product_quantity).await{
+                        if let Err(e) = add_to_db(&pool_result, crate_id, product_name, product_quantity, product_location).await{
                         println!("{}", e);
                     }
 
@@ -70,22 +80,37 @@ pub async fn add_product() -> Result<(), MyError> {
     }
 
 pub async fn connect_db() -> Result<SqlitePool, Box<dyn Error>> {
+    
     let pool = SqlitePool::connect("./Database/prod.db").await?;
     Ok(pool)
 }
-    //generate id here
-async fn add_to_db(pool: &SqlitePool, id: i32, name: String, quantity: u32,) -> Result<(), Box<dyn Error>> {
-    sqlx::query(" INSERT INTO products (id, name, quantity) VALUES (?,?,?)")
+    
+async fn add_to_db(pool: &SqlitePool, id: i32, name: String, quantity: u32, location: String) -> Result<(), Box<dyn Error>> {
+        let term = Term::stdout();
+   let input = sqlx::query(" INSERT INTO products (id, name, quantity, location) VALUES (?,?,?,?)")
         .bind(id)
         .bind(name)
         .bind(quantity)
+        .bind(location)
         .execute(pool)
         .await?;
-
+        
         println!("==========Added successfully==========");
+    
+        
+        let _ = Confirm::new()
+            .with_prompt("Press Enter to continue...")
+            .default(true)
+            .interact()?;
+
+        term.clear_last_lines(100);
+        
+        
         Ok(())
 }
 
+   
 
+   
 
 }

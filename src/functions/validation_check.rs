@@ -48,6 +48,6 @@ pub fn product_check(name: &str, quantity: u32) -> Result<(), io::Error> {
         }
         
     }
-    term.clear_last_lines(1);
+    term.clear_last_lines(100);
     Ok(())
 }
