@@ -38,7 +38,9 @@ pub async fn session_check() -> Result<(), MyError> {
         }
         None => {
             println!("Session expired or not found. Please log in.");
+            
             let current_time = Utc::now().naive_utc().format("%Y-%m-%d %H:%M:%S").to_string();
+            
              sqlx::query("DELETE FROM sessions WHERE expired_at < ?")
                 .bind(current_time)
                 .execute(&pool)

@@ -26,13 +26,14 @@ pub async fn show() -> Result<(), MyError> {
         let _ = Confirm::new()
             .with_prompt("Press Enter to continue...")
             .default(true)
-            .interact()?; // Wait for Enter // Waits for Enter
+            .interact()?; 
 
         term.clear_last_lines(2); 
          
     } else{
         
-        let mut table = Table::new(&products); // Create the table
+        let mut table = Table::new(&products); 
+        
         let new = table.with(Style::modern());
          println!("{}", new);
 
