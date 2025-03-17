@@ -30,6 +30,8 @@ async fn main() -> Result<(), MyError>{
 
 
     loop{
+        let term = Term::stdout();
+        term.clear_last_lines(100);
         show_banner();  
     let items = vec!["Add Product", "Delete Product", "View Product", "Admin settings","Pick list","Settings", "Exit"];
 

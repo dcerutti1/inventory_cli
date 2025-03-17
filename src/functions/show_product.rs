@@ -1,10 +1,4 @@
-use std::io;
-use std::io::{stdout, Write};
-use crossterm::{
-    execute,
-    terminal::{Clear, ClearType},
-};
-use crossterm::cursor::MoveTo;
+
 use dialoguer::{Confirm, Input};
 use dialoguer::console::Term;
 use crate::functions::all_errors::{MyError};
@@ -16,7 +10,8 @@ use tabled::settings::Style;
 struct Product {
     id: i32,
     name: String,
-    quantity:u32
+    quantity:u32,
+    added_by:String
 }
 pub async fn show() -> Result<(), MyError> {
     let term = Term::stdout();

@@ -6,9 +6,12 @@ use functions::all_errors::{MyError};
 use crate::functions::users::{Database, UserActions};
 use auth::sessions::session_check;
 pub async fn admin_menu() -> Result<(), MyError> {
-    session_check().await?;
+
     let term = Term::stdout();
-    term.clear_screen();
+    term.clear_last_lines(100);
+    
+    session_check().await?;
+    
     loop {
         let items = vec!["add user", "list users", "delete user", "edit user permissions", "exit"];
 
@@ -44,7 +47,7 @@ pub async fn admin_menu() -> Result<(), MyError> {
             },
             
             4 => {
-                println!("Please select one.");
+                println!("exiting..");
                 let _ = Ok::<(), MyError>(());
 
             },
@@ -55,9 +58,9 @@ pub async fn admin_menu() -> Result<(), MyError> {
             },
 
         }
-        let term = Term::stdout();
-        term.clear_screen();
+        
         if selection == 4{
+            term.clear_last_lines(100);
             break;
         }
        

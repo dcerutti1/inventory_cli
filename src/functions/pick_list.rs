@@ -15,43 +15,47 @@ pub async fn pick_list() -> Result<(), MyError> {
     
     let pool = SqlitePool::connect("./Database/prod.db").await?;
 
-    let search_term: String = Input::new()
-        .with_prompt("Enter product name for the pick list.")
-        .interact_text()?;
-    
-    let products: Vec<Product> = query_as::<_, Product>("SELECT name, location FROM products WHERE name LIKE ?")
-        .bind(search_term)
-        .fetch_all(&pool).await?;
-
-    if products.is_empty() {
+    loop {
+        let search_term: String = Input::new()
+            .with_prompt("Enter product name for the pick list.")
+            .interact_text()?;
         
-        println!("==========No products found==========");
+        if &search_term == "exit"{
+            break;
+        }
 
-        let _ = Confirm::new()
-            .with_prompt("Press Enter to continue...")
-            .default(true)
-            .interact()?;
+        let products: Vec<Product> = query_as::<_, Product>("SELECT name, location FROM products WHERE name LIKE ?")
+            .bind(search_term)
+            .fetch_all(&pool).await?;
+        
+      
 
-        term.clear_last_lines(100);
+        if products.is_empty() {
+            println!("==========No products found==========");
 
-    } else{
+            let _ = Confirm::new()
+                .with_prompt("Press Enter to continue...")
+                .default(true)
+                .interact()?;
 
-        let mut table = Table::new(&products);
+            term.clear_last_lines(100);
+        } else {
+            let mut table = Table::new(&products);
 
-        let new = table.with(Style::modern());
-        println!("{}", new);
+            let new = table.with(Style::modern());
+            println!("{}", new);
 
-        let _ = Confirm::new()
-            .with_prompt("Press Enter to continue...")
-            .default(true)
-            .interact()?;
+            let _ = Confirm::new()
+                .with_prompt("Press Enter to continue...")
+                .default(true)
+                .interact()?;
 
-        let term = Term::stdout();
-        term.clear_last_lines(100);
+            let term = Term::stdout();
+            term.clear_last_lines(100);
+
+        }
 
     }
-    
-    
     
     
     Ok(())

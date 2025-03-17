@@ -7,6 +7,7 @@ use indicatif::ProgressBar;
 use rand::Rng;
 use crate::functions::validation_check::product_check;
 use sqlx::{
+    Row,
     sqlite::{ SqlitePool},
 };
 use crate::functions::all_errors::{MyError};
@@ -85,16 +86,36 @@ pub async fn connect_db() -> Result<SqlitePool, Box<dyn Error>> {
     Ok(pool)
 }
     
-async fn add_to_db(pool: &SqlitePool, id: i32, name: String, quantity: u32, location: String) -> Result<(), Box<dyn Error>> {
+async fn add_to_db(pool: &SqlitePool, id: i32, name: String, quantity: u32, location: String) -> Result<(), MyError> {
         let term = Term::stdout();
-   let input = sqlx::query(" INSERT INTO products (id, name, quantity, location) VALUES (?,?,?,?)")
+
+
+    let username_result = sqlx::query("SELECT u.username FROM users u JOIN sessions s ON u.id = s.user_id LIMIT 1")
+        .fetch_optional(pool)
+        .await;
+
+    let username = match username_result {
+        Ok(Some(row)) => row.try_get::<String, _>("username")?,
+        Ok(None) => "Unknown".to_string(),
+        Err(_) => {
+            eprintln!("Error fetching username from sessions table");
+            "Unknown".to_string() // Default value if an error occurs
+        }
+    };
+
+    
+
+   let input = sqlx::query(" INSERT INTO products (id, name, quantity, location, added_by) VALUES (?,?,?,?,?)")
         .bind(id)
         .bind(name)
         .bind(quantity)
         .bind(location)
+       .bind(username)
         .execute(pool)
         .await?;
-        
+
+
+
         println!("==========Added successfully==========");
     
         
